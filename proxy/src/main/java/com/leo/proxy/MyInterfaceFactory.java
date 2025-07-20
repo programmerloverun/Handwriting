@@ -12,10 +12,10 @@ public class MyInterfaceFactory {
 
     private static final AtomicInteger count = new AtomicInteger();
 
-    public static File createjavaFile(String className) throws IOException {
-        String func1Body = functionBody("func1");
-        String func2Body = functionBody("func2");
-        String func3Body = functionBody("func3");
+    public static File createjavaFile(String className, MyHandler handler) throws IOException {
+        String func1Body = handler.functionBody("func1");
+        String func2Body = handler.functionBody("func2");
+        String func3Body = handler.functionBody("func3");
         String content = "package com.leo.proxy;\n" +
                 "\n" +
                 "public class " + className + " implements MyInterface{\n" +
@@ -44,9 +44,6 @@ public class MyInterfaceFactory {
         return "MyInterface$proxy" + count.incrementAndGet();
     }
 
-    private static String functionBody(String methodName) {
-        return "System.out.println(\"" + methodName + "\");";
-    }
 
     /**
      * 实例化对象
@@ -63,10 +60,10 @@ public class MyInterfaceFactory {
         return myInterface;
     }
 
-    public static MyInterface createProxyObject() throws Exception {
+    public static MyInterface createProxyObject(MyHandler handler) throws Exception {
         String className = getClassName();
         // 创建java文件
-        File javaFile = createjavaFile(className);
+        File javaFile = createjavaFile(className, handler);
         // 编译
         Compiler.compile(javaFile);
         // 实例化
