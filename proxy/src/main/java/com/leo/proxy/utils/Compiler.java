@@ -23,7 +23,7 @@ public class Compiler {
             Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(List.of(javaFile));
 
             // 设置编译选项，例如指定输出目录
-            List<String> options = Arrays.asList("-d", "./target/classes");
+            List<String> options = Arrays.asList("-d", "./proxy/target/classes");
 
             // 创建编译任务
             JavaCompiler.CompilationTask task = compiler.getTask(
